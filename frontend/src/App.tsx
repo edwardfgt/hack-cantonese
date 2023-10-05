@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css'
+import Demo from './components/demo/demo'
 import {
   QueryClient,
   QueryClientProvider,
@@ -12,7 +13,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <>
-        <h1>test</h1>
+        <Demo/>
       </>
     </QueryClientProvider>
   )
