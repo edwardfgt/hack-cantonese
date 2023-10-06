@@ -1,6 +1,8 @@
 import React from 'react'
 import './App.css'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Demo from './components/demo/demo'
+import Signup from './components/signup/signup';
 import {
   QueryClient,
   QueryClientProvider,
@@ -12,9 +14,12 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <>
-        <Demo/>
-      </>
+      <Router>
+      <Routes>
+            <Route path="/" element={<Demo />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+      </Router>
     </QueryClientProvider>
   )
 }
