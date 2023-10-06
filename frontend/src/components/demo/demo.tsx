@@ -23,7 +23,11 @@ const Demo: FC = () => {
     return <div>Error</div>;
   }
 
-  return <div>{JSON.stringify(hello)}</div>;
+  return (
+    <div>
+      <p className='text-lime-400'>{JSON.stringify(hello)}</p>
+      </div>);
 };
 
 export default Demo;
+
