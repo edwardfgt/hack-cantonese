@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 import { useState } from 'react';
+import { useMutation } from 'react-query';
+import axios from 'axios';
 
 
 const Signup: FC = () => {
@@ -14,6 +16,12 @@ const Signup: FC = () => {
     setPassword(event.target.value);
   }
 
+  const mutation = useMutation({
+    mutationFn: (userDetails) => {
+      return axios.post('http://localhost:3000/user', userDetails)
+    },
+  })
+
     return (
         <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -24,7 +32,7 @@ const Signup: FC = () => {
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
+            Sign up
           </h2>
         </div>
 
@@ -39,6 +47,8 @@ const Signup: FC = () => {
                   id="email"
                   name="email"
                   type="email"
+                  value={email}
+                  onChange={handleEmailChange}
                   autoComplete="email"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -62,6 +72,8 @@ const Signup: FC = () => {
                   id="password"
                   name="password"
                   type="password"
+                  value={password}
+                  onChange={handlePasswordChange}
                   autoComplete="current-password"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -72,9 +84,14 @@ const Signup: FC = () => {
             <div>
               <button
                 type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                  mutation.mutate({ email: email, password: password});
+              }}
+              
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign in
+                Sign up
               </button>
             </div>
           </form>
