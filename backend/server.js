@@ -1,10 +1,11 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const userRoutes = require("./routes/users");
 // const authRoutes = require("./routes/auth");
 const port = process.env.PORT || 3000;
 const cors = require("cors");
-const { mongoConnect } = require("./services/mongo");
+const { mongoConnect } = require("./config/mongo");
 const { logger } = require("./middleware/logger");
 const errorHandler = require("./middleware/errorHandler");
 const cookieParser = require("cookie-parser");

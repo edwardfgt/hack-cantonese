@@ -1,7 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const mongoPW = process.env.mongoPW;
-const conn_str = `mongodb+srv://edward:${mongoPW}@serverlessinstance0.imzzdiy.mongodb.net/?retryWrites=true&w=majority`;
+const conn_str = process.env.MONGO_URI;
+const logEvents = require("../middleware/logger");
 
 mongoose.connection.once("open", () => {
   console.log("MongoDB connection ready!");
@@ -9,6 +9,10 @@ mongoose.connection.once("open", () => {
 
 mongoose.connection.on("error", (err) => {
   console.error(err);
+  logEvents(
+    `${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`,
+    "mongoErrLog.log"
+  );
 });
 
 async function mongoConnect() {
